@@ -1,2 +1,2 @@
-# DEMA-Node-App
-Node app to handle the website and the dashboard
+# HHC-Node-App
+Node Application to handle backend operation using Express.js , Moongos.js and Mongo
