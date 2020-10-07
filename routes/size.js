@@ -73,13 +73,7 @@ router.get('/get-size/:id', auth , async(req,res)=>{
 router.put('/update-size/:id', auth , async (req,res)=>{
     try{
         const id = req.params.id;
-        const updates = Object.keys(req.body)
-        const allowed_updates = ['name' , 'password' , 'email' , 'role'];
-        const is_valid = updates.every((up)=>{allowed_updates.includes(up)});
-        console.log('===>' , updates , is_valid)
-        if(is_valid){
-            res.status(400).send('Invalid property');
-        }
+
         const data = await size.findByIdAndUpdate(id, req.body ,{new:true , runValidators:true , useFindAndModify:false})
         if(!data){
             return res.status(400).send({

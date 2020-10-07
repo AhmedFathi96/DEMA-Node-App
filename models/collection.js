@@ -1,7 +1,22 @@
 const mongoose = require('mongoose');
 
-const collection = mongoose.Schema({
-    name:{
+const collections = mongoose.Schema({
+    collection_img:{
+        type: Buffer 
+    },
+    english_name:{
+        type: String,
+        required: true
+    },
+    arabic_name:{
+        type: String,
+        required: true
+    },
+    english_sub_header:{
+        type: String,
+        required: true
+    },
+    arabic_sub_header:{
         type: String,
         required: true
     }
@@ -14,5 +29,5 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const Collection = mongoose.model('collection' , collection);
-module.exports = Collection;
+const Collections = mongoose.model('collections' , collections);
+module.exports = Collections;

@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const jwt      = require('jsonwebtoken');
-const validator = require('validator');
 
 const color = mongoose.Schema({
-    name:{
+    english_name:{
+        type: String,
+        required: true
+    },
+    arabic_name:{
         type: String,
         required: true
     }

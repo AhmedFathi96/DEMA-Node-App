@@ -39,21 +39,23 @@ app.get('/', function (req, res) {
 
 
 // import routes
-const authRouter        = require('./routes/auth');
-const adminRouter       = require('./routes/admin');
-const sliderRouter      = require('./routes/slider');
-const aboutRouter       = require('./routes/about');
-const categoryRouter     = require('./routes/category');
-const contactRouter     = require('./routes/contact');
-const infoRouter        = require('./routes/info');
-const statisticRouter   = require('./routes/statistic');
-const teamRouter        = require('./routes/team');
-const brandRouter       = require('./routes/brand');
-
-const colorRouter      = require('./routes/color');
-const sizeRouter       = require('./routes/size');
-const tagRouter        = require('./routes/tag');
-const collectionRouter = require('./routes/collection');
+const authRouter                = require('./routes/auth');
+const adminRouter               = require('./routes/admin');
+const sliderRouter              = require('./routes/slider');
+const aboutRouter               = require('./routes/about');
+const categoryRouter            = require('./routes/category');
+const contactRouter             = require('./routes/contact');
+const infoRouter                = require('./routes/info');
+const statisticRouter           = require('./routes/statistic');
+const teamRouter                = require('./routes/team');
+const brandRouter               = require('./routes/brand');
+const colorRouter               = require('./routes/color');
+const sizeRouter                = require('./routes/size');
+const tagRouter                 = require('./routes/tag');
+const collectionRouter          = require('./routes/collection');
+const itemRouter                = require('./routes/item');
+const itemAdditionalInfoRouter  = require('./routes/itemAdditionalInfo');
+const itemImagesRouter          = require('./routes/itemImages');
 
 
 
@@ -63,20 +65,24 @@ const collectionRouter = require('./routes/collection');
 
 
 // set routes
-app.use('/api', authRouter)
-app.use('/api/admin', adminRouter)
-app.use('/api/slider', sliderRouter)
-app.use('/api/about', aboutRouter)
-app.use('/api/contact', contactRouter)
-app.use('/api/info', infoRouter)
-app.use('/api/category', categoryRouter)
-app.use('/api/statistic', statisticRouter)
-app.use('/api/team', teamRouter)
-app.use('/api/brand', brandRouter)
-app.use('/api/collection', collectionRouter)
-app.use('/api/color', colorRouter)
-app.use('/api/size', sizeRouter)
-app.use('/api/tag',tagRouter)
+app.use('/api'                      ,authRouter)
+app.use('/api/admin'                ,adminRouter)
+app.use('/api/slider'               ,sliderRouter)
+app.use('/api/about'                ,aboutRouter)
+app.use('/api/contact'              ,contactRouter)
+app.use('/api/info'                 ,infoRouter)
+app.use('/api/category'             ,categoryRouter)
+app.use('/api/statistic'            ,statisticRouter)
+app.use('/api/team'                 ,teamRouter)
+app.use('/api/brand'                ,brandRouter)
+app.use('/api/collection'           ,collectionRouter)
+app.use('/api/color'                ,colorRouter)
+app.use('/api/size'                 ,sizeRouter)
+app.use('/api/tag'                  ,tagRouter)
+app.use('/api/item'                 ,itemRouter)
+app.use('/api/tag'                  ,tagRouter)
+app.use('/api/itemImages'           ,itemImagesRouter)
+app.use('/api/itemAdditionalInfo'   ,itemAdditionalInfoRouter)
 
 
 

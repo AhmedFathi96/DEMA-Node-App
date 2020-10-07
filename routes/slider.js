@@ -132,7 +132,7 @@ router.put('/update-slider/:id', auth , upload.single('slider_img'), async (req,
         const data = await slider.findByIdAndUpdate(
             id, 
             {
-                slider_img:buffer,
+                slider_img:req.file.buffer,
                 header: req.body.header,
                 order: req.body.order,
                 sub_header:req.body.sub_header,

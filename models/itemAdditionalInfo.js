@@ -1,30 +1,30 @@
 const mongoose = require('mongoose');
 
-
-const category = mongoose.Schema({
-    category_img:{
-        type: Buffer 
-    },
-    english_name: {
+const itemAdditionalInfo = mongoose.Schema({
+    english_name:{
         type: String,
         required: true
     },
-    arabic_name: {
+    arabic_name:{
         type: String,
         required: true
     },
-    starting_price: {
+    content:{
         type: String,
         required: true
     },
-
+    item:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'item'
+    }
     
 }, {timestamps: true})
+
 
 
 mongoose.set('useNewUrlParser', true);  
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const Category = mongoose.model('category' , category);
-module.exports = Category;
+const ItemAdditionalInfo = mongoose.model('itemAdditionalInfo' , itemAdditionalInfo);
+module.exports = ItemAdditionalInfo;

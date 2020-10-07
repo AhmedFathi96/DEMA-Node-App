@@ -24,8 +24,10 @@ router.post('/add-team', auth , upload.single('team_img') ,async(req,res)=>{
         const buffer = await sharp(req.file.buffer).toBuffer()
         const data = new team({
             team_img:buffer,
-            name: req.body.name,
-            position: req.body.position
+            arabic_name: req.body.arabic_name,
+            arabic_job: req.body.arabic_job,
+            english_name: req.body.english_name,
+            english_job: req.body.english_job,
         })
 
         await data.save();
@@ -128,9 +130,11 @@ router.put('/update-team/:id', auth , upload.single('team_img'), async (req,res)
         const data = await team.findByIdAndUpdate(
             id, 
             {
-                team_img:buffer,
-                name: req.body.name,
-                position: req.body.position
+                team_img: req.file.buffer,
+                arabic_name: req.body.arabic_name,
+                arabic_job: req.body.arabic_job,
+                english_name: req.body.english_name,
+                english_job: req.body.english_job,
             
             },
             {new:true , runValidators:true , useFindAndModify:false}

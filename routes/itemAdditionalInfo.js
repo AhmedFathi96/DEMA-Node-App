@@ -1,12 +1,11 @@
 const express = require('express')
 const router  = express.Router();
-const tag   = require('../models/tag'); 
-const auth    = require('../middleware/auth');
-
-router.post('/create-tag', auth , async(req,res)=>{
+const itemAdditionalInfo   = require('../models/itemAdditionalInfo'); 
+const auth    = require('../middleware/auth')
+router.post('/create-itemAdditionalInfo', auth , async(req,res)=>{
     
     try{
-        const data = new tag(req.body);
+        const data = new itemAdditionalInfo(req.body);
         console.log(data,req.body);
         await data.save();
         res.status(200).send({
@@ -21,10 +20,10 @@ router.post('/create-tag', auth , async(req,res)=>{
     }
 })
 
-router.post('/first-create-tag' , async(req,res)=>{
+router.post('/first-create-itemAdditionalInfo' , async(req,res)=>{
     
     try{
-        const data = new tag(req.body);
+        const data = new itemAdditionalInfo(req.body);
         console.log(data,req.body);
         await data.save();
         res.status(200).send({
@@ -39,10 +38,10 @@ router.post('/first-create-tag' , async(req,res)=>{
     }
 })
 
-router.get('/get-tags', auth , async(req,res)=>{
+router.get('/get-itemAdditionalInfos', auth , async(req,res)=>{
     
     try{
-        const data = await tag.find({});
+        const data = await itemAdditionalInfo.find({});
         res.status(200).send({
             status:'success',
             data:data
@@ -54,11 +53,11 @@ router.get('/get-tags', auth , async(req,res)=>{
         });
     }
 })
-router.get('/get-tag/:id', auth , async(req,res)=>{
+router.get('/get-itemAdditionalInfo/:id', auth , async(req,res)=>{
     
     try{
         const id = req.params.id
-        const data = await tag.findById(id);
+        const data = await itemAdditionalInfo.findById(id);
         res.status(200).send({
             status:'success',
             data:data
@@ -71,11 +70,11 @@ router.get('/get-tag/:id', auth , async(req,res)=>{
     }
 })
 
-router.put('/update-tag/:id', auth , async (req,res)=>{
+router.put('/update-itemAdditionalInfo/:id', auth , async (req,res)=>{
     try{
         const id = req.params.id;
 
-        const data = await tag.findByIdAndUpdate(id, req.body ,{new:true , runValidators:true , useFindAndModify:false})
+        const data = await itemAdditionalInfo.findByIdAndUpdate(id, req.body ,{new:true , runValidators:true , useFindAndModify:false})
         if(!data){
             return res.status(400).send({
                 status:'Error',
@@ -96,16 +95,16 @@ router.put('/update-tag/:id', auth , async (req,res)=>{
 
 })
 
-router.delete('/delete-tag/:id',auth , async(req,res)=>{
+router.delete('/delete-itemAdditionalInfo/:id',auth , async(req,res)=>{
     
     try{
         const id = req.params.id
         console.log('id==>' , id)
-        const data = await tag.findByIdAndDelete(id);
+        const data = await itemAdditionalInfo.findByIdAndDelete(id);
         if(!data){
             res.status(400).send({
                 status:'Error',
-                Error: 'can\'t find that tag'
+                Error: 'can\'t find that itemAdditionalInfo'
             });
         }
         res.status(200).send({

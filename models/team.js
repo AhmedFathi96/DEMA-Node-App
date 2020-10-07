@@ -5,11 +5,19 @@ const team = mongoose.Schema({
     team_img:{
         type: Buffer 
     },
-    name: {
+    arabic_name: {
         type: String,
         required: true
     },
-    position: {
+    arabic_job: {
+        type: String,
+        required: true
+    },
+    english_name: {
+        type: String,
+        required: true
+    },
+    english_job: {
         type: String,
         required: true
     },

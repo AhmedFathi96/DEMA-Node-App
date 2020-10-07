@@ -24,7 +24,8 @@ router.post('/add-category', auth , upload.single('category_img') ,async(req,res
         const buffer = await sharp(req.file.buffer).toBuffer()
         const data = new category({
             category_img:buffer,
-            name: req.body.name,
+            english_name: req.body.english_name,
+            arabic_name: req.body.arabic_name,
             starting_price: req.body.starting_price
         })
 
@@ -128,10 +129,10 @@ router.put('/update-category/:id', auth , upload.single('category_img'), async (
         const data = await category.findByIdAndUpdate(
             id, 
             {
-                category_img:buffer,
-                name: req.body.name,
+                category_img:req.file.buffer,
+                english_name: req.body.english_name,
+                arabic_name: req.body.arabic_name,
                 starting_price: req.body.starting_price,
-            
             },
             {new:true , runValidators:true , useFindAndModify:false}
         )

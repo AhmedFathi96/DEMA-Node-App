@@ -2,7 +2,7 @@ const express = require('express')
 const router  = express.Router();
 const auth    = require('../middleware/auth');
 const multer  = require('multer');
-const statistic  = require('../models/statistics'); 
+const itemImages  = require('../models/itemImages'); 
 const sharp   = require('sharp')
 
 
@@ -19,14 +19,12 @@ const upload = multer({
     }
 })
 
-router.post('/add-statistic', auth , upload.single('statistic_img') ,async(req,res)=>{
+router.post('/add-itemImage', auth , upload.single('itemImages_img') ,async(req,res)=>{
     try{
         const buffer = await sharp(req.file.buffer).toBuffer()
-        const data = new statistic({
-            statistic_img:buffer,
-            count: req.body.count,
-            arabic_desc: req.body.arabic_desc,
-            english_desc: req.body.english_desc
+        const data = new itemImages({
+            img:buffer,
+            item: req.body.item
         })
 
         await data.save();
@@ -42,10 +40,10 @@ router.post('/add-statistic', auth , upload.single('statistic_img') ,async(req,r
     }
 })
 
-router.get('/get-statistics', auth , async(req,res)=>{
+router.get('/get-itemImages', auth , async(req,res)=>{
     
     try{
-        const data = await statistic.find({});
+        const data = await itemImages.find({});
         res.status(200).send({
             status:'success',
             data:data
@@ -58,10 +56,10 @@ router.get('/get-statistics', auth , async(req,res)=>{
     }
 })
 
-router.get('/website-get-statistics' , async(req,res)=>{
+router.get('/website-get-itemImages' , async(req,res)=>{
     
     try{
-        const data = await statistic.find({});
+        const data = await itemImages.find({});
         res.status(200).send({
             status:'success',
             data:data
@@ -73,11 +71,11 @@ router.get('/website-get-statistics' , async(req,res)=>{
         });
     }
 })
-router.get('/get-statistic/:id', auth , async(req,res)=>{
+router.get('/get-itemImages/:id', auth , async(req,res)=>{
     
     try{
         const id = req.params.id
-        const data = await statistic.findById(id);
+        const data = await itemImages.findById(id);
         res.status(200).send({
             status:'success',
             data:data
@@ -91,13 +89,13 @@ router.get('/get-statistic/:id', auth , async(req,res)=>{
 })
 
 
-router.get('/get-statistic-image/:id/view' , async(req,res)=>{
+router.get('/get-itemImages-image/:id/view' , async(req,res)=>{
     
     try{
         const id = req.params.id
-        const data = await statistic.findById(id);
+        const data = await itemImages.findById(id);
         res.set('Content-type' , 'image/jpg');
-        res.send(data.statistic_img);
+        res.send(data.itemImages_img);
     }catch(e){
         res.status(400).send({
             status:'Error',
@@ -107,13 +105,13 @@ router.get('/get-statistic-image/:id/view' , async(req,res)=>{
     }
 })
 
-router.get('/website-get-statistic-image/:id/view' , async(req,res)=>{
+router.get('/website-get-itemImages-image/:id/view' , async(req,res)=>{
     
     try{
         const id = req.params.id
-        const data = await statistic.findById(id);
+        const data = await itemImages.findById(id);
         res.set('Content-type' , 'image/jpg');
-        res.send(data.statistic_img);
+        res.send(data.itemImages_img);
     }catch(e){
         res.status(400).send({
             status:'Error',
@@ -123,17 +121,16 @@ router.get('/website-get-statistic-image/:id/view' , async(req,res)=>{
     }
 })
 
-router.put('/update-statistic/:id', auth , upload.single('statistic_img'), async (req,res)=>{
+router.put('/update-itemImages/:id', auth , upload.single('itemImages_img'), async (req,res)=>{
     try{
         const id = req.params.id;
-        const data = await statistic.findByIdAndUpdate(
+        // const newData = new itemImages({itemImages_img:buffer,caption: req.body.caption})
+        console.log(req.body)
+        const data = await itemImages.findByIdAndUpdate(
             id, 
             {
-                statistic_img: req.file.buffer,
-                count: req.body.count,
-                arabic_desc: req.body.arabic_desc,
-                english_desc: req.body.english_desc
-            
+                itemImages_img:req.file.buffer,
+                item: req.body.item
             },
             {new:true , runValidators:true , useFindAndModify:false}
         )
@@ -157,16 +154,16 @@ router.put('/update-statistic/:id', auth , upload.single('statistic_img'), async
 
 })
 
-router.delete('/delete-statistic/:id',auth , async(req,res)=>{
+router.delete('/delete-itemImages/:id',auth , async(req,res)=>{
     
     try{
         const id = req.params.id
         console.log('id==>' , id)
-        const data = await statistic.findByIdAndDelete(id);
+        const data = await itemImages.findByIdAndDelete(id);
         if(!data){
             res.status(400).send({
                 status:'Error',
-                Error: 'can\'t find that statistic'
+                Error: 'can\'t find that itemImages'
             });
         }
         res.status(200).send({

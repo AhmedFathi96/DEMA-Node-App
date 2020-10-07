@@ -9,12 +9,14 @@ const statistic = mongoose.Schema({
         type: String,
         required: true
     },
-    desc: {
+    arabic_desc: {
         type: String,
         required: true
     },
-
-    
+    english_desc: {
+        type: String,
+        required: true
+    },
 }, {timestamps: true})
 
 
