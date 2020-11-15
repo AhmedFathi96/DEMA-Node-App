@@ -60,7 +60,6 @@ router.get('/get-collections', auth , async(req,res)=>{
 })
 
 router.get('/website-get-collections' , async(req,res)=>{
-    
     try{
         const data = await collections.find({});
         res.status(200).send({

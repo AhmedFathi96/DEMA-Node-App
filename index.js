@@ -52,6 +52,7 @@ const brandRouter               = require('./routes/brand');
 const colorRouter               = require('./routes/color');
 const sizeRouter                = require('./routes/size');
 const tagRouter                 = require('./routes/tag');
+const badgeRouter               = require('./routes/badge');
 const collectionRouter          = require('./routes/collection');
 const itemRouter                = require('./routes/item');
 const itemAdditionalInfoRouter  = require('./routes/itemAdditionalInfo');
@@ -77,6 +78,7 @@ app.use('/api/team'                 ,teamRouter)
 app.use('/api/brand'                ,brandRouter)
 app.use('/api/collection'           ,collectionRouter)
 app.use('/api/color'                ,colorRouter)
+app.use('/api/badge'                ,badgeRouter)
 app.use('/api/size'                 ,sizeRouter)
 app.use('/api/tag'                  ,tagRouter)
 app.use('/api/item'                 ,itemRouter)

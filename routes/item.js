@@ -7,11 +7,10 @@ router.post('/create-item', auth , async(req,res)=>{
     
     try{
         const data = new item(req.body);
-        console.log(data,req.body);
         await data.save();
         res.status(200).send({
             status:'success',
-            data:req.body
+            data: data._id
         });
     }catch(e){
         res.status(400).send({
@@ -29,6 +28,29 @@ router.get('/get-items', auth , async(req,res)=>{
         .populate('collections')
         .populate('category')
         .populate('tag')
+        .populate('badge')
+        
+        res.status(200).send({
+            status:'success',
+            data:data
+        });
+    }catch(e){
+        res.status(400).send({
+            status:'Error',
+            Error: e
+        });
+    }
+})
+
+router.get('/website-get-items' , async(req,res)=>{
+    
+    try{
+        const data = await item.find({}).populate('color')
+        .populate('size')
+        .populate('collections')
+        .populate('category')
+        .populate('tag')
+        .populate('badge')
         res.status(200).send({
             status:'success',
             data:data
@@ -60,7 +82,6 @@ router.get('/get-item/:id', auth , async(req,res)=>{
 router.put('/update-item/:id', auth , async (req,res)=>{
     try{
         const id = req.params.id;
-
         const data = await item.findByIdAndUpdate(id, req.body ,{new:true , runValidators:true , useFindAndModify:false})
         if(!data){
             return res.status(400).send({

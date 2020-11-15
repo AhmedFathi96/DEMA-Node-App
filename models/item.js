@@ -17,14 +17,6 @@ const item = mongoose.Schema({
         type: String,
         required: true
     },
-    arabic_full_description:{
-        type: String,
-        required: true
-    },
-    english_full_description:{
-        type: String,
-        required: true
-    },
     price_before_discount:{
         type: String,
         required: true
@@ -37,7 +29,10 @@ const item = mongoose.Schema({
         type: String,
         required: false
     },
-
+    status:{
+        type: String,
+        required: false
+    },
     color:[
         {type: mongoose.Schema.Types.ObjectId, ref: 'color'}
     ],
@@ -52,6 +47,9 @@ const item = mongoose.Schema({
     ],
     tag: [
         {type: mongoose.Schema.Types.ObjectId , ref: 'tag'}
+    ],
+    badge: [
+        {type: mongoose.Schema.Types.ObjectId , ref: 'badge'}
     ],
 
     

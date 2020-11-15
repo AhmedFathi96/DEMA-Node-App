@@ -1,11 +1,11 @@
 const express = require('express')
 const router  = express.Router();
-const itemAdditionalInfo   = require('../models/itemAdditionalInfo'); 
+const badge   = require('../models/badge'); 
 const auth    = require('../middleware/auth')
-router.post('/create-itemAdditionalInfo', auth , async(req,res)=>{
+router.post('/create-badge', auth , async(req,res)=>{
     
     try{
-        const data = new itemAdditionalInfo(req.body);
+        const data = new badge(req.body);
         console.log(data,req.body);
         await data.save();
         res.status(200).send({
@@ -20,15 +20,13 @@ router.post('/create-itemAdditionalInfo', auth , async(req,res)=>{
     }
 })
 
-router.post('/first-create-itemAdditionalInfo' , async(req,res)=>{
+router.get('/get-badges', auth , async(req,res)=>{
     
     try{
-        const data = new itemAdditionalInfo(req.body);
-        console.log(data,req.body);
-        await data.save();
+        const data = await badge.find({});
         res.status(200).send({
             status:'success',
-            data:req.body
+            data:data
         });
     }catch(e){
         res.status(400).send({
@@ -37,12 +35,11 @@ router.post('/first-create-itemAdditionalInfo' , async(req,res)=>{
         });
     }
 })
-
-router.get('/get-itemAdditionalInfo/:id', auth , async(req,res)=>{
+router.get('/get-badge/:id', auth , async(req,res)=>{
     
     try{
-        const id = req.params.id;
-        const data = await itemAdditionalInfo.find({item: id})
+        const id = req.params.id
+        const data = await badge.findById(id);
         res.status(200).send({
             status:'success',
             data:data
@@ -55,12 +52,10 @@ router.get('/get-itemAdditionalInfo/:id', auth , async(req,res)=>{
     }
 })
 
-
-router.put('/update-itemAdditionalInfo/:id', auth , async (req,res)=>{
+router.put('/update-badge/:id', auth , async (req,res)=>{
     try{
         const id = req.params.id;
-
-        const data = await itemAdditionalInfo.findByIdAndUpdate(id, req.body ,{new:true , runValidators:true , useFindAndModify:false})
+        const data = await badge.findByIdAndUpdate(id, req.body ,{new:true , runValidators:true , useFindAndModify:false})
         if(!data){
             return res.status(400).send({
                 status:'Error',
@@ -81,21 +76,21 @@ router.put('/update-itemAdditionalInfo/:id', auth , async (req,res)=>{
 
 })
 
-router.delete('/delete-itemAdditionalInfo/:id',auth , async(req,res)=>{
+router.delete('/delete-badge/:id',auth , async(req,res)=>{
     
     try{
         const id = req.params.id
         console.log('id==>' , id)
-        const data = await itemAdditionalInfo.findByIdAndDelete(id);
+        const data = await badge.findByIdAndDelete(id);
         if(!data){
             res.status(400).send({
                 status:'Error',
-                Error: 'can\'t find that itemAdditionalInfo'
+                Error: 'can\'t find that badge'
             });
         }
         res.status(200).send({
             status:'success',
-            data:data._id
+            data:data
         });
     }catch(e){
         res.status(400).send({

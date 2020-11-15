@@ -19,7 +19,7 @@ const upload = multer({
     }
 })
 
-router.post('/add-itemImage', auth , upload.single('itemImages_img') ,async(req,res)=>{
+router.post('/add-itemImage', auth , upload.single('img') ,async(req,res)=>{
     try{
         const buffer = await sharp(req.file.buffer).toBuffer()
         const data = new itemImages({
@@ -30,7 +30,7 @@ router.post('/add-itemImage', auth , upload.single('itemImages_img') ,async(req,
         await data.save();
         res.status(200).send({
             status:'success',
-            data:req.body
+            data: data._id
         });
     }catch(e){
         res.status(400).send({
@@ -56,29 +56,30 @@ router.get('/get-itemImages', auth , async(req,res)=>{
     }
 })
 
-router.get('/website-get-itemImages' , async(req,res)=>{
-    
+router.get('/item/:item_id/image/:id/view' , async(req,res)=>{
     try{
-        const data = await itemImages.find({});
-        res.status(200).send({
-            status:'success',
-            data:data
-        });
+        const item_id = req.params.item_id;
+        const id = req.params.id;
+        const data = await itemImages.find({item: item_id , _id:id});
+        res.set('Content-type' , 'image/jpg');
+        res.send(data[0].img);
     }catch(e){
         res.status(400).send({
+            status:'Error',
             status:'Error',
             Error: e
         });
     }
 })
-router.get('/get-itemImages/:id', auth , async(req,res)=>{
+
+router.get('/get-itemImages/:id' ,async(req,res)=>{
     
     try{
         const id = req.params.id
-        const data = await itemImages.findById(id);
+        const data = await itemImages.find({item: id});
         res.status(200).send({
             status:'success',
-            data:data
+            data:data.map(item=> item._id)
         });
     }catch(e){
         res.status(400).send({
@@ -88,6 +89,22 @@ router.get('/get-itemImages/:id', auth , async(req,res)=>{
     }
 })
 
+router.get('/website-get-itemImages/:id' ,async(req,res)=>{
+    
+    try{
+        const id = req.params.id
+        const data = await itemImages.find({item: id});
+        res.status(200).send({
+            status:'success',
+            data:data.map(item=> item._id)
+        });
+    }catch(e){
+        res.status(400).send({
+            status:'Error',
+            Error: e
+        });
+    }
+})
 
 router.get('/get-itemImages-image/:id/view' , async(req,res)=>{
     
@@ -95,7 +112,7 @@ router.get('/get-itemImages-image/:id/view' , async(req,res)=>{
         const id = req.params.id
         const data = await itemImages.findById(id);
         res.set('Content-type' , 'image/jpg');
-        res.send(data.itemImages_img);
+        res.send(data.img);
     }catch(e){
         res.status(400).send({
             status:'Error',
@@ -111,7 +128,7 @@ router.get('/website-get-itemImages-image/:id/view' , async(req,res)=>{
         const id = req.params.id
         const data = await itemImages.findById(id);
         res.set('Content-type' , 'image/jpg');
-        res.send(data.itemImages_img);
+        res.send(data.img);
     }catch(e){
         res.status(400).send({
             status:'Error',
@@ -121,7 +138,7 @@ router.get('/website-get-itemImages-image/:id/view' , async(req,res)=>{
     }
 })
 
-router.put('/update-itemImages/:id', auth , upload.single('itemImages_img'), async (req,res)=>{
+router.put('/update-itemImages/:id', auth , upload.single('img'), async (req,res)=>{
     try{
         const id = req.params.id;
         // const newData = new itemImages({itemImages_img:buffer,caption: req.body.caption})
@@ -129,7 +146,7 @@ router.put('/update-itemImages/:id', auth , upload.single('itemImages_img'), asy
         const data = await itemImages.findByIdAndUpdate(
             id, 
             {
-                itemImages_img:req.file.buffer,
+                img:req.file.buffer,
                 item: req.body.item
             },
             {new:true , runValidators:true , useFindAndModify:false}
@@ -142,7 +159,7 @@ router.put('/update-itemImages/:id', auth , upload.single('itemImages_img'), asy
         }
         res.status(200).send({
             status: 'success',
-            data: data
+            data: data._id
         })
 
     }catch(e){
@@ -168,7 +185,7 @@ router.delete('/delete-itemImages/:id',auth , async(req,res)=>{
         }
         res.status(200).send({
             status:'success',
-            data:data
+            data:data._id
         });
     }catch(e){
         res.status(400).send({

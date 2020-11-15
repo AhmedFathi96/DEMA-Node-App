@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const itemImages = mongoose.Schema({
     img:{
-        type: Buffer 
+        type: Buffer,
     },
     item:{
         type: mongoose.Schema.Types.ObjectId,

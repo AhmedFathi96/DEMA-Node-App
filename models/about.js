@@ -2,43 +2,82 @@ const mongoose = require('mongoose');
 
 
 const about = mongoose.Schema({
-    header: {
+    english_header: {
         type: String,
         required: true
     },
-    sub_header: {
+    english_sub_header: {
         type: String,
         required: true
     },
-    content: {
+    english_content: {
         type: String,
         required: true
     },
-    mission: {
+    english_mission: {
         type: String,
         required: true
     },
-    mission_content: {
+    english_mission_content: {
         type: String,
         required: true
     },
-    vision: {
+    english_vision: {
         type: String,
         required: true
     },
-    vision_content: {
+    english_vision_content: {
         type: String,
         required: true
     },
-    goal: {
+    english_goal: {
         type: String,
         required: true
     },
-    goal_content: {
+    english_goal_content: {
         type: String,
         required: true
     },
     
+
+
+
+    arabic_header: {
+        type: String,
+        required: true
+    },
+    arabic_sub_header: {
+        type: String,
+        required: true
+    },
+    arabic_content: {
+        type: String,
+        required: true
+    },
+    arabic_mission: {
+        type: String,
+        required: true
+    },
+    arabic_mission_content: {
+        type: String,
+        required: true
+    },
+    arabic_vision: {
+        type: String,
+        required: true
+    },
+    arabic_vision_content: {
+        type: String,
+        required: true
+    },
+    arabic_goal: {
+        type: String,
+        required: true
+    },
+    arabic_goal_content: {
+        type: String,
+        required: true
+    },
 
 }, {timestamps: true})
 

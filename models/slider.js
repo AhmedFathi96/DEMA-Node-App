@@ -5,21 +5,35 @@ const slider = mongoose.Schema({
     slider_img:{
         type: Buffer 
     },
-    header: {
+    english_header: {
         type: String,
         required: true
     },
-    sub_header: {
+    english_sub_header: {
         type: String,
         required: true
     },
-    content: {
+    english_content: {
+        type: String,
+    },
+
+    arabic_header: {
         type: String,
         required: true
+    },
+    arabic_sub_header: {
+        type: String,
+        required: true
+    },
+    arabic_content: {
+        type: String,
     },
     order:{
         type: Number,
         required: true
+    },
+    sale:{
+        type: String,
     }
     
 }, {timestamps: true})

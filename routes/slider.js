@@ -24,16 +24,22 @@ router.post('/add-slider', auth , upload.single('slider_img') ,async(req,res)=>{
         const buffer = await sharp(req.file.buffer).toBuffer()
         const data = new slider({
             slider_img:buffer,
-            header: req.body.header,
             order: req.body.order,
-            sub_header:req.body.sub_header,
-            content:req.body.content,
+            sale: req.body.sale,
+            
+            english_header: req.body.english_header,
+            english_sub_header:req.body.english_sub_header,
+            english_content:req.body.english_content,
+
+            arabic_header: req.body.arabic_header,
+            arabic_sub_header:req.body.arabic_sub_header,
+            arabic_content:req.body.arabic_content,
         })
 
         await data.save();
         res.status(200).send({
             status:'success',
-            data:req.body
+            data: data
         });
     }catch(e){
         res.status(400).send({
@@ -108,6 +114,7 @@ router.get('/get-slider-image/:id/view' , async(req,res)=>{
     }
 })
 
+
 router.get('/website-get-slider-image/:id/view' , async(req,res)=>{
     
     try{
@@ -132,11 +139,17 @@ router.put('/update-slider/:id', auth , upload.single('slider_img'), async (req,
         const data = await slider.findByIdAndUpdate(
             id, 
             {
-                slider_img:req.file.buffer,
-                header: req.body.header,
+                slider_img: req.file.buffer,
                 order: req.body.order,
-                sub_header:req.body.sub_header,
-                content:req.body.content,
+                sale: req.body.sale,
+                
+                english_header: req.body.english_header,
+                english_sub_header:req.body.english_sub_header,
+                english_content:req.body.english_content,
+    
+                arabic_header: req.body.arabic_header,
+                arabic_sub_header:req.body.arabic_sub_header,
+                arabic_content:req.body.arabic_content,
     
             
             },
