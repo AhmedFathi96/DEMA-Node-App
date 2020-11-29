@@ -33,7 +33,7 @@ router.post('/add-collection', auth , upload.single('collection_img') ,async(req
         await data.save();
         res.status(200).send({
             status:'success',
-            data:req.body
+            data:data
         });
     }catch(e){
         res.status(400).send({
