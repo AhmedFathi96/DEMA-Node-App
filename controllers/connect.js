@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 
-//const url = 'mongodb+srv://AhmedFathi96:271996Ahmed@cluster0.bg1zo.mongodb.net/<dbname>?retryWrites=true&w=majority';
-const url = 'mongodb://localhost:27017/<dbname>';
+const url = 'mongodb+srv://AhmedFathi96:271996Ahmed@cluster0.bg1zo.mongodb.net/<dbname>?retryWrites=true&w=majority';
+//const url = 'mongodb://localhost:27017/<dbname>';
 
 const Connect = async ()=>{
     await mongoose.connect(url ,
